@@ -4,10 +4,16 @@
  */
 
 var express = require('express')
-  , http = require('http')
-  , path = require('path');
+  , app = express()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server)
+  , path = require('path')
+  , fs = require('fs')
+  ;
 
-var app = express();
+/*****************
+ * Server
+*****************/
 
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
@@ -28,6 +34,22 @@ app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
-http.createServer(app).listen(app.get('port'), function () {
+server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
+});
+
+/*****************
+ * Sockets
+*****************/
+
+var testFile = __dirname + '/test.md';
+
+io.sockets.on('connection', function (socket) {
+  fs.watchFile(testFile, function (curr, prev) {
+    fs.readFile(testFile, 'utf8', function (err, data) {
+      if (!err && data) {
+        socket.emit('update', data);
+      }
+    });
+  });
 });
