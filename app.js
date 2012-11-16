@@ -18,7 +18,8 @@ app.configure(function () {
   app.use(app.router);
   app.use(require('less-middleware')({
     src:  __dirname + '/less'
-  , dest: __dirname + '/public/stylesheets'
+  , dest: __dirname + '/public/css'
+  , prefix: '/css'
   }));
   app.use(express.static(path.join(__dirname, 'public')));
 });
