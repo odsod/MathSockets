@@ -1,14 +1,11 @@
 Testfil
 =======
 
-Heje
-----
+Testrubrik
+----------
 
-brun banan
+Test-text
 
-ehhe
+hetuhe
 
-Haha
-----
-
-heh
+$$\sum_{i=1}^{n} e^{2\pi j i^2}$$
