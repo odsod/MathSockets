@@ -1,0 +1,26 @@
+### /home/poscar/.gitignore-boilerplates/Node.gitignore
+
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+
+
+### /home/poscar/.gitignore-boilerplates/Global/vim.gitignore
+
+.*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+
+node_modules
