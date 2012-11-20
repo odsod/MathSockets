@@ -10,8 +10,6 @@ var express = require('express')
   , argv    = require('optimist').argv
   ;
 
-console.log(argv._[0]);
-
 /**
  * The Markdown file to watch and render in the browser
  */
@@ -47,7 +45,15 @@ io.sockets.on('connection', function (socket) {
 /**
  * HTML to serve
  */
-var cssFile = argv.css && 'file://' + path.join(process.cwd(), argv.css);
+var stylesheet;
+if (argv.css) {
+  stylesheet = path.join(process.cwd(), argv.css);
+} else {
+  var localStylesheet = path.join(process.cwd(), 'styles.css');
+  if (path.existsSync(localStylesheet)) {
+    stylesheet = localStylesheet;
+  }
+}
 
 /**
  * Server
@@ -56,17 +62,22 @@ app.configure(function () {
   app.set('port', argv.port || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'hjs');
-  app.use(app.router);
   app.use(express.static(path.join(__dirname, 'resources')));
 });
 
 app.get('/', function (req, res) {
   res.render('app', {
     title: argv._[0].split('.')[0]
-  , stylesheet: {
-      path: cssFile
-    }
+  , stylesheet: stylesheet
   });
+});
+
+app.get('/styles.css', function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/css' });
+  if (stylesheet) {
+    res.write(fs.readFileSync(stylesheet, 'utf8'));
+  }
+  res.end();
 });
 
 server.listen(app.get('port'), function () {

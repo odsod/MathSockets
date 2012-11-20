@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>{{ title }}</title>
     {{#stylesheet}}
-    <link rel='stylesheet' href='{{{ path }}}' />
+    <link rel='stylesheet' href='/styles.css' type="text/css" />
     {{/stylesheet}}
   </head>
   <body></body>
