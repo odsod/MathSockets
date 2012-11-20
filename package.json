@@ -1,13 +1,15 @@
 {
-  "name": "MathSockets",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
+  "name": "MathSockets"
+, "version": "0.0.1"
+, "scripts": {
     "start": "node app"
-  },
-  "dependencies": {
+  }
+, "dependencies": {
     "express": "3.0.3"
-  , "less-middleware": "*"
   , "socket.io": "*"
+  , "hjs": "*"
+  }
+, "bin": {
+    "msock": "./app.js"  
   }
 }
