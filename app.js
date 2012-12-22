@@ -80,6 +80,15 @@ app.get('/styles.css', function (req, res) {
   res.end();
 });
 
+app.get('/static', function (req, res) {
+  var markdown = fs.readFileSync(file, 'utf8');
+  res.render('static', {
+    title: argv._[0].split('.')[0]
+  , stylesheet: stylesheet
+  , markdown: markdown
+  });
+});
+
 server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });

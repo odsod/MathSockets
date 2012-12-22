@@ -69,7 +69,7 @@ var Showdown = { extensions: {} };
 //
 // forEach
 //
-var forEach = Showdown.forEach = function(obj, callback) {
+var forEach = Showdown.forEach = function (obj, callback) {
 	if (typeof obj.forEach === 'function') {
 		obj.forEach(callback);
 	} else {
@@ -1259,6 +1259,9 @@ var _FormParagraphs = function(text) {
 			var blockText = g_html_blocks[RegExp.$1];
 			blockText = blockText.replace(/\$/g,"$$$$"); // Escape any dollar signs
 			grafsOut[i] = grafsOut[i].replace(/~K\d+K/,blockText);
+      grafsOut[i] = grafsOut[i].replace(/~M(\d+)M/g, function (match, p1) {
+        return g_math_blocks[p1];
+      });
 		}
 	}
 
